@@ -11,9 +11,9 @@ Neuron::~Neuron()
     //dtor
 }
 
-void Neuron::setSignal(double signal)
+void Neuron::setSignal(double __signal)
 {
-    _signal = signal;
+    _signal = __signal;
 }
 
 void Neuron::setSum(double sum)

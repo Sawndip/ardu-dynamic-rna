@@ -41,6 +41,7 @@ void DynamicRna::initializeLayer(Layer layer)
 void DynamicRna::addLayer(int n_neurons)
 {
     _layers[last_layer_added].setNNeurons(n_neurons);
+    initializeLayer(_layers[last_layer_added]);
     last_layer_added++;
 }
 
@@ -86,24 +87,24 @@ void DynamicRna::feedFoward(double* inputs)
                 (&layer->getNeurons()[i])->setSum(sum);
             }
 
-            double signal = 0;
+            double _signal = 0;
             switch(layer->getFunc())
             {
                 case FUNC_LOG_SIG:
-                    signal = _log_sig(layer->getNeurons()[i].getSum());
+                    _signal = _log_sig(layer->getNeurons()[i].getSum());
                     break;
 
                 case FUNC_PURELIN:
-                    signal = _purelin(layer->getNeurons()[i].getSum());
+                    _signal = _purelin(layer->getNeurons()[i].getSum());
                     break;
 
                 case FUNC_TAN_SIG:
-                    signal = _tan_sig(layer->getNeurons()[i].getSum());
+                    _signal = _tan_sig(layer->getNeurons()[i].getSum());
                     break;
             }
 
             Neuron* neuron = &(layer->getNeurons()[i]);
-            neuron->setSignal(signal);
+            neuron->setSignal(_signal);
         }
     }
 
